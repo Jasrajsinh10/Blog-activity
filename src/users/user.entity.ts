@@ -13,6 +13,7 @@ import {
 import { Post } from 'src/posts/post.entity'; // Adjust import
 import { Comment } from 'src/comments/comment.entity'; // Adjust import pathpath
 import { Like } from 'src/likes/like.entity'; // Adjust import path
+import { userType } from './enums/userType.enum';
 // import { Follow } from 'src/follows/follow.entity'; // Adjust import path
 
 @Entity()
@@ -25,6 +26,14 @@ export class User {
 
   @Column({ unique: true })
   email: string;
+
+  @Column({
+    type: 'enum',
+    enum: userType,
+    nullable: false,
+    default: userType.USER,
+  })
+  userType: userType;
 
   @Column()
   password: string; // Store hashed password

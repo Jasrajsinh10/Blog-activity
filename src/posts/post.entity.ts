@@ -23,6 +23,18 @@ export class Post {
   @Column('text')
   content: string;
 
+  @Column({
+    type: 'varchar',
+    nullable: true,
+  })
+  imageUrl: string; // Path to image file
+
+  @Column({
+    type: 'varchar',
+    nullable: true,
+  })
+  videoUrl: string;
+
   @ManyToOne(() => User, (user) => user.posts)
   author: User;
 

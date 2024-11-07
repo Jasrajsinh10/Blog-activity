@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from '../user.entity';
 import { CreateUserDto } from '../dtos/create-user.dto';
+import { GetUserDto } from '../dtos/get-user.dto';
 
 @Injectable()
 export class UsersService {
@@ -22,6 +23,23 @@ export class UsersService {
       newUser = await this.usersRepository.save(newUser);
 
       return newUser;
+    }
+  }
+
+  public async getUser(getUserDto: GetUserDto, id: number) {
+    const checkusertype = await this.usersRepository.findOne({
+      where: { id: id },
+    });
+    if (checkusertype.userType == 'Admin') {
+      const user = this.usersRepository.findOne({
+        where: { id: getUserDto.id },
+      });
+      return user;
+    } else {
+      throw new HttpException(
+        'Unauthorized to access',
+        HttpStatus.UNAUTHORIZED,
+      );
     }
   }
 }

@@ -1,15 +1,13 @@
 import {
   IsEmail,
   IsNotEmpty,
-  MaxLength,
   IsString,
-  MinLength,
   Matches,
-  IsEnum,
+  MaxLength,
+  MinLength,
 } from 'class-validator';
-import { userType } from '../enums/userType.enum';
 
-export class CreateUserDto {
+export class SignupDto {
   @IsString()
   @IsNotEmpty()
   @MinLength(3)
@@ -18,7 +16,6 @@ export class CreateUserDto {
 
   @IsEmail()
   @IsNotEmpty()
-  @MaxLength(96)
   email: string;
 
   @IsString()
@@ -30,8 +27,4 @@ export class CreateUserDto {
       'Minimum eight characters, at least one letter, one number and one special character',
   })
   password: string;
-
-  @IsEnum(userType)
-  @IsNotEmpty()
-  userType: userType;
 }

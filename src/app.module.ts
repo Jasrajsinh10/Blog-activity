@@ -12,6 +12,7 @@ import { Post } from './posts/post.entity';
 import { Like } from './likes/like.entity';
 import { Follow } from './follows/follow.entity';
 import { Comment } from './comments/comment.entity';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -34,6 +35,7 @@ import { Comment } from './comments/comment.entity';
         password: 'ztlab58',
       }),
     }),
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],
