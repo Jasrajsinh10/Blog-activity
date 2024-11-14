@@ -1,5 +1,5 @@
 // src/auth/auth.service.ts
-import { Injectable } from '@nestjs/common';
+import { forwardRef, Inject, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { UsersService } from '../users/providers/users.service';
 import * as bcrypt from 'bcryptjs';
@@ -7,8 +7,9 @@ import * as bcrypt from 'bcryptjs';
 @Injectable()
 export class AuthService {
   constructor(
-    private userService: UsersService,
-    private jwtService: JwtService,
+    @Inject(forwardRef(() => UsersService))
+    private readonly userService: UsersService,
+    private readonly jwtService: JwtService,
   ) {}
 
   async validateUser(email: string, password: string): Promise<any> {
@@ -22,9 +23,8 @@ export class AuthService {
 
   async login(user: any) {
     const payload = { email: user.email, sub: user.id };
-    return {
-      access_token: this.jwtService.sign(payload),
-    };
+    const access_token = this.jwtService.sign(payload);
+    return access_token;
   }
 
   async signup(createUserDto) {
