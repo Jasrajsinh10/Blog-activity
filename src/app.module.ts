@@ -21,6 +21,7 @@ import { AuthModule } from './auth/auth.module';
     CommentsModule,
     LikesModule,
     FollowsModule,
+    AuthModule,
     TypeOrmModule.forRootAsync({
       imports: [],
       inject: [],
@@ -35,7 +36,6 @@ import { AuthModule } from './auth/auth.module';
         password: 'ztlab58',
       }),
     }),
-    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],

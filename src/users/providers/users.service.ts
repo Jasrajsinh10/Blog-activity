@@ -68,10 +68,8 @@ export class UsersService {
     if (!user) {
       throw new UnauthorizedException('Invalid credentials');
     }
-    const token = await this.authService.login(loginDto);
-    console.log(1);
+    const token = await this.authService.createToken(loginDto);
     await this.usersRepository.update({ email: loginDto.email }, { token });
-    console.log(2);
     return token;
   }
 

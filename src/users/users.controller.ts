@@ -5,12 +5,10 @@ import {
   Param,
   ParseIntPipe,
   Post,
-  UseGuards,
 } from '@nestjs/common';
 import { CreateUserDto } from './dtos/create-user.dto';
 import { UsersService } from './providers/users.service';
 import { GetUserDto } from './dtos/get-user.dto';
-import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { LoginDto } from 'src/auth/dto/login.dto';
 
 @Controller('users')
@@ -28,7 +26,6 @@ export class UsersController {
   }
 
   @Get('/:id')
-  @UseGuards(JwtAuthGuard)
   public getUsers(
     @Body() getUserDto: GetUserDto,
     @Param('id', ParseIntPipe) id: number,

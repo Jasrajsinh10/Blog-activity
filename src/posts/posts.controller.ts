@@ -5,19 +5,16 @@ import {
   Body,
   Param,
   ParseIntPipe,
-  UseGuards,
   Request,
   Get,
 } from '@nestjs/common';
 import { PostsService } from './providers/posts.service';
-import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { CreatePostDto } from './dtos/create-post.dto';
 
 @Controller('posts')
 export class PostsController {
   constructor(private postsService: PostsService) {}
 
-  @UseGuards(JwtAuthGuard)
   @Post()
   async createPost(
     @Body() createPostDto: CreatePostDto,
@@ -37,7 +34,6 @@ export class PostsController {
   //   return this.postsService.addComment(postId, content, req.user);
   // }
 
-  @UseGuards(JwtAuthGuard)
   @Post(':postId/like')
   async likePost(
     @Param('postId', ParseIntPipe) postId: number,
